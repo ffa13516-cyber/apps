@@ -2,34 +2,29 @@ package com.messenger.app.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.messenger.app.R
 import com.messenger.app.databinding.ActivityHomeBinding
-import com.messenger.app.ui.auth.LoginActivity
 import com.messenger.app.ui.channel.CreateChannelActivity
 import com.messenger.app.ui.common.NewChatBottomSheet
 import com.messenger.app.ui.group.CreateGroupActivity
-import com.messenger.app.utils.SessionManager
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sessionManager = SessionManager.getInstance(this)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "Messenger"
 
         setupViewPager()
-        setupFab()
+        setupBottomNavigation()
     }
 
     private fun setupViewPager() {
@@ -51,16 +46,15 @@ class HomeActivity : AppCompatActivity() {
                 else -> 0
             })
         }.attach()
+
+        setupFab()
     }
 
     private fun setupFab() {
         binding.fab.setOnClickListener {
             val currentTab = binding.viewPager.currentItem
             when (currentTab) {
-                0 -> {
-                    val sheet = NewChatBottomSheet()
-                    sheet.show(supportFragmentManager, "new_chat")
-                }
+                0 -> NewChatBottomSheet().show(supportFragmentManager, "new_chat")
                 1 -> startActivity(Intent(this, CreateGroupActivity::class.java))
                 2 -> startActivity(Intent(this, CreateChannelActivity::class.java))
             }
@@ -81,20 +75,41 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.home_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_logout -> {
-                sessionManager.clearSession()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-                true
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_chats -> {
+                    binding.viewPager.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.fragmentContainer.visibility = View.GONE
+                    binding.fab.show()
+                    supportActionBar?.title = "Messenger"
+                    true
+                }
+                R.id.nav_profile -> {
+                    binding.viewPager.visibility = View.GONE
+                    binding.tabLayout.visibility = View.GONE
+                    binding.fragmentContainer.visibility = View.VISIBLE
+                    binding.fab.hide()
+                    supportActionBar?.title = "Profile"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, ProfileFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_settings -> {
+                    binding.viewPager.visibility = View.GONE
+                    binding.tabLayout.visibility = View.GONE
+                    binding.fragmentContainer.visibility = View.VISIBLE
+                    binding.fab.hide()
+                    supportActionBar?.title = "Settings"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, SettingsFragment())
+                        .commit()
+                    true
+                }
+                else -> false
             }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 }
