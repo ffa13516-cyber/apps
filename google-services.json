@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "560030093300",
     "project_id": "messengerapp-d6e7c",
-    "storage_bucket": "messengerapp-d6e7c.firebasestorage.app"
+    "storage_bucket": "messengerapp-d6e7c.firebasestorage.app",
+    "firebase_url": "https://messengerapp-d6e7c-default-rtdb.firebaseio.com"
   },
   "client": [
     {
