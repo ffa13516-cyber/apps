@@ -32,6 +32,20 @@ class UserRepository {
         snapshot.children.firstOrNull()?.getValue(User::class.java)
     }
 
+    suspend fun getUserByUsername(username: String): Result<User?> = runCatching {
+        val snapshot = usersRef
+            .orderByChild("username")
+            .equalTo(username.lowercase())
+            .get()
+            .await()
+        snapshot.children.firstOrNull()?.getValue(User::class.java)
+    }
+
+    suspend fun isUsernameAvailable(username: String): Boolean {
+        val result = getUserByUsername(username)
+        return result.getOrNull() == null
+    }
+
     suspend fun getAllUsers(): Result<List<User>> = runCatching {
         val snapshot = usersRef.get().await()
         snapshot.children.mapNotNull { it.getValue(User::class.java) }
