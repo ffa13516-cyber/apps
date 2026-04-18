@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.messenger.app.data.repository.ChatRepository
@@ -40,6 +42,26 @@ class NewChatBottomSheet : BottomSheetDialogFragment() {
         binding.rvUsers.adapter = adapter
         binding.rvUsers.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
+        // Search by username
+        binding.btnSearch.setOnClickListener {
+            val username = binding.etSearch.text.toString().trim().lowercase()
+            if (username.isBlank()) {
+                requireContext().toast("Enter a username")
+                return@setOnClickListener
+            }
+            lifecycleScope.launch {
+                val user = userRepository.getUserByUsername(username).getOrNull()
+                if (user == null) {
+                    requireContext().toast("User @$username not found")
+                } else if (user.uid == sessionManager.getUserId()) {
+                    requireContext().toast("That's you!")
+                } else {
+                    openChat(user.uid, user.displayName)
+                }
+            }
+        }
+
+        // Load all users
         lifecycleScope.launch {
             val users = userRepository.getAllUsers().getOrNull() ?: emptyList()
             adapter.submitList(users.filter { it.uid != sessionManager.getUserId() })
