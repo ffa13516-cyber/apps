@@ -68,13 +68,39 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/InputStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username (e.g. ahmed123)"
+            android:layout_marginTop="14dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:inputType="textNoSuggestions"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username can only contain letters, numbers, _ and ."
+            android:textColor="@color/text_hint"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp" />
+
         <Button
             android:id="@+id/btnSave"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Save"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="20dp" />
 
         <Button
             android:id="@+id/btnSavedMessages"
