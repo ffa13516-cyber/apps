@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.messenger.app.data.repository.UserRepository
 import com.messenger.app.databinding.FragmentProfileBinding
 import com.messenger.app.utils.SessionManager
 import com.messenger.app.utils.toast
 import com.messenger.app.utils.toInitials
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -29,29 +29,65 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sessionManager = SessionManager.getInstance(requireContext())
 
-        val name = sessionManager.getDisplayName()
+        val uid = sessionManager.getUserId()
         val phone = sessionManager.getPhone()
 
-        binding.tvName.text = name
-        binding.tvPhone.text = phone
-        binding.tvAvatarInitial.text = name.toInitials()
-        binding.etName.setText(name)
+        // Load user data
+        lifecycleScope.launch {
+            val user = userRepository.getUserById(uid).getOrNull()
+            val name = user?.displayName ?: sessionManager.getDisplayName()
+            val username = user?.username ?: ""
+
+            binding.tvName.text = name
+            binding.tvPhone.text = phone
+            binding.tvAvatarInitial.text = name.toInitials()
+            binding.etName.setText(name)
+            binding.etUsername.setText(username)
+        }
 
         binding.btnSave.setOnClickListener {
             val newName = binding.etName.text.toString().trim()
+            val newUsername = binding.etUsername.text.toString().trim().lowercase()
+
             if (newName.isBlank()) {
                 requireContext().toast("Name cannot be empty")
                 return@setOnClickListener
             }
+
+            if (newUsername.isBlank()) {
+                requireContext().toast("Username cannot be empty")
+                return@setOnClickListener
+            }
+
+            if (!newUsername.matches(Regex("^[a-z0-9_.]+$"))) {
+                requireContext().toast("Username can only contain letters, numbers, _ and .")
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch {
-                val uid = sessionManager.getUserId()
-                userRepository.getUserById(uid).getOrNull()?.let { user ->
-                    userRepository.saveUser(user.copy(displayName = newName))
+                // Check if username available
+                val currentUser = userRepository.getUserById(uid).getOrNull()
+                if (currentUser?.username != newUsername) {
+                    val available = userRepository.isUsernameAvailable(newUsername)
+                    if (!available) {
+                        requireContext().toast("Username @$newUsername is taken!")
+                        return@launch
+                    }
                 }
-                sessionManager.saveSession(uid, phone, newName)
+
+                currentUser?.let { user ->
+                    userRepository.saveUser(
+                        user.copy(
+                            displayName = newName,
+                            username = newUsername
+                        )
+                    )
+                }
+
+                sessionManager.saveSession(uid, sessionManager.getPhone(), newName)
                 binding.tvName.text = newName
                 binding.tvAvatarInitial.text = newName.toInitials()
-                requireContext().toast("Saved!")
+                requireContext().toast("Saved! @$newUsername")
             }
         }
 
