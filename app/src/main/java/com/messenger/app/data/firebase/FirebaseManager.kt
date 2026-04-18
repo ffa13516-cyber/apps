@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 object FirebaseManager {
 
     val database: FirebaseDatabase by lazy {
-        FirebaseDatabase.getInstance().apply {
+        FirebaseDatabase.getInstance("https://messengerapp-d6e7c-default-rtdb.firebaseio.com").apply {
             setPersistenceEnabled(true)
         }
     }
