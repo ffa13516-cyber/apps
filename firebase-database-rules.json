@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "users": {
+      ".read": true,
+      ".write": true
+    },
+    "chats": {
+      ".read": true,
+      ".write": true
+    },
+    "messages": {
+      ".read": true,
+      ".write": true
+    },
+    "groups": {
+      ".read": true,
+      ".write": true
+    },
+    "groupMessages": {
+      ".read": true,
+      ".write": true
+    },
+    "channels": {
+      ".read": true,
+      ".write": true
+    },
+    "channelMessages": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

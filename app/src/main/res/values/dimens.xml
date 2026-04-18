@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar_size_list">46dp</dimen>
+    <dimen name="avatar_size_chat">40dp</dimen>
+    <dimen name="avatar_text_size">18sp</dimen>
+    <dimen name="bubble_max_width">280dp</dimen>
+    <dimen name="bubble_padding_h">14dp</dimen>
+    <dimen name="bubble_padding_v">9dp</dimen>
+    <dimen name="item_padding_h">16dp</dimen>
+    <dimen name="item_padding_v">12dp</dimen>
+    <dimen name="corner_radius_bubble">18dp</dimen>
+    <dimen name="corner_radius_card">12dp</dimen>
+    <dimen name="send_button_size">48dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="divider_height">0.5dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="unread_badge_size">20dp</dimen>
+</resources>
