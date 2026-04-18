@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.messenger.app.R
 import com.messenger.app.data.repository.UserRepository
 import com.messenger.app.databinding.FragmentProfileBinding
+import com.messenger.app.ui.chat.SavedMessagesFragment
 import com.messenger.app.utils.SessionManager
 import com.messenger.app.utils.toast
 import com.messenger.app.utils.toInitials
@@ -32,7 +34,6 @@ class ProfileFragment : Fragment() {
         val uid = sessionManager.getUserId()
         val phone = sessionManager.getPhone()
 
-        // Load user data
         lifecycleScope.launch {
             val user = userRepository.getUserById(uid).getOrNull()
             val name = user?.displayName ?: sessionManager.getDisplayName()
@@ -65,7 +66,6 @@ class ProfileFragment : Fragment() {
             }
 
             lifecycleScope.launch {
-                // Check if username available
                 val currentUser = userRepository.getUserById(uid).getOrNull()
                 if (currentUser?.username != newUsername) {
                     val available = userRepository.isUsernameAvailable(newUsername)
@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
                     )
                 }
 
-                sessionManager.saveSession(uid, sessionManager.getPhone(), newName)
+                sessionManager.saveSession(uid, phone, newName)
                 binding.tvName.text = newName
                 binding.tvAvatarInitial.text = newName.toInitials()
                 requireContext().toast("Saved! @$newUsername")
@@ -92,7 +92,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnSavedMessages.setOnClickListener {
-            requireContext().toast("Coming soon!")
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, SavedMessagesFragment())
+                .addToBackStack(null)
+                .commit()
+            requireActivity().title = "Saved Messages"
         }
     }
 
