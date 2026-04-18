@@ -58,7 +58,6 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="80dp"
         android:src="@drawable/ic_new_chat"
@@ -77,7 +76,6 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/tab_icon_selector"
         app:itemTextColor="@color/tab_icon_selector"
-        app:selectedItemId="@id/nav_chats"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
