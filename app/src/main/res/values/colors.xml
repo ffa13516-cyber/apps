@@ -1,48 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Brand -->
-    <color name="primary">#6C63FF</color>
-    <color name="primary_dark">#4B44CC</color>
-    <color name="primary_light">#9B95FF</color>
-    <color name="accent">#FF6584</color>
-
-    <!-- Dark Theme Backgrounds -->
-    <color name="bg_dark">#0A0A0F</color>
-    <color name="bg_surface">#12121A</color>
-    <color name="bg_elevated">#1C1C28</color>
-    <color name="bg_card">#242433</color>
-    <color name="bg_input">#1C1C28</color>
-
-    <!-- Message Bubbles -->
-    <color name="bubble_sent">#6C63FF</color>
-    <color name="bubble_received">#1C1C28</color>
+    <color name="primary">#00B4D8</color>
+    <color name="primary_dark">#0096C7</color>
+    <color name="primary_light">#48CAE4</color>
+    <color name="accent">#FF6B9D</color>
+    <color name="bg_dark">#0D0D1A</color>
+    <color name="bg_surface">#12122A</color>
+    <color name="bg_elevated">#1A1A35</color>
+    <color name="bg_card">#1E1E3A</color>
+    <color name="bg_input">#1A1A35</color>
+    <color name="bubble_sent">#00B4D8</color>
+    <color name="bubble_received">#1E1E3A</color>
     <color name="bubble_sent_text">#FFFFFF</color>
     <color name="bubble_received_text">#E0E0E0</color>
-
-    <!-- Text Colors -->
     <color name="text_primary">#F5F5F5</color>
     <color name="text_secondary">#9E9E9E</color>
     <color name="text_hint">#616161</color>
     <color name="text_timestamp">#757575</color>
-
-    <!-- UI Elements -->
-    <color name="divider">#1C1C28</color>
+    <color name="divider">#1E1E3A</color>
     <color name="online_dot">#00E676</color>
-    <color name="unread_badge">#FF6584</color>
+    <color name="unread_badge">#FF6B9D</color>
     <color name="icon_tint">#B0BEC5</color>
-    <color name="tab_selected">#6C63FF</color>
+    <color name="tab_selected">#00B4D8</color>
     <color name="tab_unselected">#616161</color>
-    <color name="send_button">#6C63FF</color>
-    <color name="toolbar_bg">#0D0D14</color>
-    <color name="status_bar">#0A0A0F</color>
-    <color name="fab_color">#6C63FF</color>
+    <color name="send_button">#00B4D8</color>
+    <color name="toolbar_bg">#0D0D1A</color>
+    <color name="status_bar">#0D0D1A</color>
+    <color name="fab_color">#00B4D8</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-
-    <!-- Avatar Colors -->
-    <color name="avatar_purple">#6C63FF</color>
-    <color name="avatar_teal">#00BCD4</color>
+    <color name="avatar_purple">#7B68EE</color>
+    <color name="avatar_teal">#00B4D8</color>
     <color name="avatar_blue">#2196F3</color>
-    <color name="avatar_pink">#FF6584</color>
+    <color name="avatar_pink">#FF6B9D</color>
     <color name="avatar_orange">#FF9800</color>
 </resources>
