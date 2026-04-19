@@ -9,6 +9,7 @@ import com.messenger.app.data.model.Message
 import com.messenger.app.databinding.ItemMessageReceivedBinding
 import com.messenger.app.databinding.ItemMessageSentBinding
 import com.messenger.app.utils.toFullTimeString
+import com.messenger.app.utils.toInitials
 
 class MessagesAdapter(private val myUid: String) :
     ListAdapter<Message, RecyclerView.ViewHolder>(DiffCallback()) {
@@ -53,6 +54,11 @@ class MessagesAdapter(private val myUid: String) :
         fun bind(message: Message) {
             binding.tvMessage.text = message.text
             binding.tvTime.text = message.timestamp.toFullTimeString()
+
+            // Show avatar initial
+            binding.tvAvatarInitial.text = message.senderName.toInitials()
+
+            // Show sender name in groups
             if (message.senderName.isNotBlank()) {
                 binding.tvSenderName.text = message.senderName
                 binding.tvSenderName.visibility = android.view.View.VISIBLE
@@ -66,4 +72,4 @@ class MessagesAdapter(private val myUid: String) :
         override fun areItemsTheSame(a: Message, b: Message) = a.messageId == b.messageId
         override fun areContentsTheSame(a: Message, b: Message) = a == b
     }
-}
+    }
