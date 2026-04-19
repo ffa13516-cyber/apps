@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Messenger</string>
+    <string name="app_name">ChatX</string>
     <string name="hint_phone">Phone number (e.g. +1234567890)</string>
     <string name="btn_continue">Continue</string>
     <string name="label_chats">Chats</string>
@@ -20,7 +20,7 @@
     <string name="logout">Logout</string>
     <string name="add_members">Add Members</string>
     <string name="new_chat">New Chat</string>
-    <string name="welcome_back">Welcome back 👋</string>
+    <string name="welcome_back">Welcome to ChatX 👋</string>
     <string name="enter_phone">Enter your phone number to continue</string>
     <string name="saved_messages">Saved Messages</string>
     <string name="edit_profile">Edit Profile</string>
